@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
-add_executable(${PROJECT_NAME} Main.cpp Map.cpp Wall.cpp Player.cpp FootballMap.cpp)
+add_executable(${PROJECT_NAME} Main.cpp Map.cpp Wall.cpp Player.cpp FootballMap.cpp Ball.cpp)
 
 INCLUDE(FindPkgConfig)
 

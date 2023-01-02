@@ -94,22 +94,22 @@ void Player::Update(float delta, const Uint8 *keyState)
 	}
 	else if(keyState[keys[0]] && positionRect.y >0)
 	{
-		positionRect.y -= moveSpeed * delta/sqrt(2); 
+		positionRect.y -= (moveSpeed * delta*sqrt(1.5)); 
 		cropRect.y = frameHeight * 3;
 	}
 	else if(keyState[keys[1]]&& positionRect.y <770)
 	{
-		positionRect.y += moveSpeed * delta*sqrt(2); 
+		positionRect.y += (moveSpeed * delta*sqrt(1.5)); 
 		cropRect.y = 0;
 	}
 	else if(keyState[keys[2]]&& positionRect.x >60)
 	{
-		positionRect.x -= moveSpeed * delta/sqrt(1.5); 
+		positionRect.x -= (moveSpeed * delta*sqrt(1.5)); 
 		cropRect.y = frameHeight;
 	}
 	else if(keyState[keys[3]]&& positionRect.x <1260)
 	{
-		positionRect.x += moveSpeed * delta*sqrt(2); 
+		positionRect.x += (moveSpeed * delta*sqrt(1.5)); 
 		cropRect.y = frameHeight * 2;
 	}
 	else 

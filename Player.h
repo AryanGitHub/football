@@ -12,12 +12,12 @@ class Player
 private: 
 	SDL_Rect cropRect;
 	SDL_Texture *texture;
-	float moveSpeed;
+	
 	float frameCounter; 
 	int frameWidth, frameHeight;
 	int textureWidth;
 	bool isActive; 
-	SDL_Scancode keys[4];
+	
 	int originX, originY;
 	int radius;
 public:
@@ -29,6 +29,8 @@ public:
 	bool IntersectsWith(Player &p);
 
 	SDL_Rect positionRect;
+	SDL_Scancode keys[4];
+	float moveSpeed;
 	
 	int GetOriginX();
 	int GetOriginY();

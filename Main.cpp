@@ -2,6 +2,7 @@
 #include "Map.h"
 #include "FootballMap.h"
 #include "Player.h"
+#include "Ball.h"
 using namespace std;
 
 SDL_Texture *LoadTexture (std::string filePath, SDL_Renderer *renderTarget)
@@ -43,9 +44,13 @@ int main(int argc, char *argv[])
 
 	Player player1(renderTarget, "sprite.png", 550, 395, 3, 4);
 	Player player2(renderTarget, "sprite.png", 780, 395, 3, 4);
+
+	Ball ball(renderTarget, (550+780)/2 , 395 ,12, "ball.png");
 	
 	SDL_Texture *texture = LoadTexture("123.png", renderTarget);
 	SDL_QueryTexture(texture, NULL, NULL, &levelWidth, &levelHeight);
+
+
 
 	bool isRunning = true; 
 	SDL_Event ev;
@@ -63,9 +68,12 @@ int main(int argc, char *argv[])
 		}
 
 		keyState = SDL_GetKeyboardState(NULL);
-
+        ball.isIntersectWithPlayer(player1 , keyState);
+		ball.isIntersectWithPlayer(player2 , keyState);
+		ball.update(delta);
 		player1.Update(delta, keyState); 
 		player2.Update(delta, keyState);
+		
 
 
 		camerRect.x = player1.GetOriginX() - 682; 
@@ -88,6 +96,7 @@ int main(int argc, char *argv[])
 		SDL_RenderCopy(renderTarget, texture, &camerRect, NULL);
 		player1.Draw(renderTarget, camerRect); 
 		player2.Draw(renderTarget, camerRect);
+		ball.draw(renderTarget);
 		SDL_RenderPresent(renderTarget);
 	}
 
