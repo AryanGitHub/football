@@ -72,24 +72,24 @@ void Player::Update(float delta, const Uint8 *keyState)
 {
 		isActive = true;
 
-	if(keyState[keys[0]] && keyState[keys[2]] && positionRect.y >0 && positionRect.x>0){
+	if(keyState[keys[0]] && keyState[keys[2]] && positionRect.y >0 && positionRect.x>60){
 		positionRect.y -= moveSpeed * delta/sqrt(2); 
 		positionRect.x -= moveSpeed * delta/sqrt(2); 
 		cropRect.y = frameHeight * 3;
 	}
-	else if(keyState[keys[0]] && keyState[keys[3]]&& positionRect.y >0 && positionRect.x<1300){
+	else if(keyState[keys[0]] && keyState[keys[3]]&& positionRect.y >0 && positionRect.x<1260){
 			positionRect.y -= moveSpeed * delta/sqrt(2); 
-			positionRect.x += moveSpeed * delta/sqrt(2); 
+			positionRect.x += moveSpeed * delta; 
 			cropRect.y = frameHeight * 3;
 	}
-	else if(keyState[keys[1]] && keyState[keys[2]]&& positionRect.y <750 && positionRect.x>0){
-			positionRect.y += moveSpeed * delta/sqrt(2); 
+	else if(keyState[keys[1]] && keyState[keys[2]]&& positionRect.y <770 && positionRect.x>60){
+			positionRect.y += moveSpeed * delta; 
 			positionRect.x -= moveSpeed * delta/sqrt(2); 
 			cropRect.y = 0;
 	}
-	else if(keyState[keys[1]] && keyState[keys[3]] && positionRect.y <750 && positionRect.x<1300){
-			positionRect.y += moveSpeed * delta/sqrt(2); 
-			positionRect.x += moveSpeed * delta/sqrt(2); 
+	else if(keyState[keys[1]] && keyState[keys[3]] && positionRect.y <770 && positionRect.x<1260){
+			positionRect.y += moveSpeed * delta; 
+			positionRect.x += moveSpeed * delta; 
 			cropRect.y = 0;
 	}
 	else if(keyState[keys[0]] && positionRect.y >0)
@@ -97,19 +97,19 @@ void Player::Update(float delta, const Uint8 *keyState)
 		positionRect.y -= moveSpeed * delta/sqrt(2); 
 		cropRect.y = frameHeight * 3;
 	}
-	else if(keyState[keys[1]]&& positionRect.y <750)
+	else if(keyState[keys[1]]&& positionRect.y <770)
 	{
-		positionRect.y += moveSpeed * delta; 
+		positionRect.y += moveSpeed * delta*sqrt(2); 
 		cropRect.y = 0;
 	}
-	else if(keyState[keys[2]]&& positionRect.x >0)
+	else if(keyState[keys[2]]&& positionRect.x >60)
 	{
-		positionRect.x -= moveSpeed * delta/sqrt(2); 
+		positionRect.x -= moveSpeed * delta/sqrt(1.5); 
 		cropRect.y = frameHeight;
 	}
-	else if(keyState[keys[3]]&& positionRect.x <1300)
+	else if(keyState[keys[3]]&& positionRect.x <1260)
 	{
-		positionRect.x += moveSpeed * delta; 
+		positionRect.x += moveSpeed * delta*sqrt(2); 
 		cropRect.y = frameHeight * 2;
 	}
 	else 
