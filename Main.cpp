@@ -3,34 +3,105 @@
 #include "FootballMap.h"
 #include "Player.h"
 using namespace std;
-int main () {
+
+SDL_Texture *LoadTexture (std::string filePath, SDL_Renderer *renderTarget)
+{
+	SDL_Texture *texture = nullptr;
+	SDL_Surface *surface = IMG_Load(filePath.c_str());
+	if (surface == NULL)
+		std::cout << "Error" << std::endl;
+	else
+	{
+		texture = SDL_CreateTextureFromSurface(renderTarget, surface);
+		if (texture == NULL)
+			std::cout << "Error" << std::endl;
+	}
+
+	SDL_FreeSurface(surface);
+
+	return texture;
+}
+
+int main(int argc, char *argv[])
+{
+	// Initializing and loading variables
+	SDL_Window *window = nullptr;
+	SDL_Renderer *renderTarget = nullptr;
+	int currentTime = 0; 
+	int prevTime = 0; 
+	float delta = 0.0f;
+	const Uint8 *keyState;
+	SDL_Rect camerRect = { 0, 0, 1365, 822 };
+	int levelWidth, levelHeight;
+
+	SDL_Init(SDL_INIT_VIDEO);
+	
+
+	int data = 10;
+	window = SDL_CreateWindow("FootBall Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1365, 822, SDL_WINDOW_SHOWN);
+	renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+	Player player1(renderTarget, "sprite.png", 550, 395, 3, 4);
+	Player player2(renderTarget, "sprite.png", 780, 395, 3, 4);
+	
+	SDL_Texture *texture = LoadTexture("123.png", renderTarget);
+	SDL_QueryTexture(texture, NULL, NULL, &levelWidth, &levelHeight);
+
+	bool isRunning = true; 
+	SDL_Event ev;
+
+	while(isRunning)
+	{
+		prevTime = currentTime; 
+		currentTime = SDL_GetTicks(); 
+		delta = (currentTime - prevTime) / 1000.0f;
+		while(SDL_PollEvent(&ev) != 0)
+		{
+			// Getting the events
+			if(ev.type == SDL_QUIT)
+				isRunning = false;
+		}
+
+		keyState = SDL_GetKeyboardState(NULL);
+
+		player1.Update(delta, keyState); 
+		player2.Update(delta, keyState);
 
 
-//Wall::Wall (int A , int B , int C , int startX , int endX,int sidePointX ,int sidePointY);
-//Wall::Wall (int A , int B , int C , int startX , int endX,int sidePointX ,int sidePointY);
+		camerRect.x = player1.GetOriginX() - 682; 
+		camerRect.y = player1.GetOriginY() - 411;
+
+		if(camerRect.x < 0)
+			camerRect.x = 0; 
+		if(camerRect.y < 0)
+			camerRect.y = 0;
+
+		if(camerRect.x + camerRect.w >= levelWidth)
+			camerRect.x = levelWidth - 1365; 
+		if(camerRect.y + camerRect.h >= levelHeight)
+			camerRect.y = levelHeight - 822;
 
 
+		player1.IntersectsWith(player2);
 
-//cout << (a.isOnSameSide(5,-5) &&  b.isOnSameSide(5,-5) )<< endl;
-//cout << (a.isOnSameSide(6,5)  &&  b.isOnSameSide(6,5)  )<< endl;
-//cout << (a.isOnSameSide(5,25) &&  b.isOnSameSide(5,25) )<< endl;
-//cout << (  b.isOnSameSide(0,5) )<< endl;
+		SDL_RenderClear(renderTarget);
+		SDL_RenderCopy(renderTarget, texture, &camerRect, NULL);
+		player1.Draw(renderTarget, camerRect); 
+		player2.Draw(renderTarget, camerRect);
+		SDL_RenderPresent(renderTarget);
+	}
 
+	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderTarget);
+	SDL_DestroyTexture(texture);
 
+	texture = nullptr;
 
-//cout << (c1.isOnSameSide(-5,2) &&  d1.isOnSameSide(-5,2) )<< endl;
-//cout << (c1.isOnSameSide(2,2)  &&  d1.isOnSameSide(2,2)  )<< endl;
-//cout << (c1.isOnSameSide(25,2) &&  d1.isOnSameSide(25,2) )<< endl;
+	window = nullptr;
+	renderTarget = nullptr;
 
-//cout << (c2.isOnSameSide(-5,7) &&  d2.isOnSameSide(-5,7) )<< endl;
-//cout << (c2.isOnSameSide(2,7)  &&  d2.isOnSameSide(2,7)  )<< endl;
-//cout << (c2.isOnSameSide(25,7) &&  d2.isOnSameSide(25,7) )<< endl;
+	IMG_Quit();
+	SDL_Quit();
 
-
-FootballMap fm (0,0,30,15,5);
-
-//FootballMap (int initPointX , int initPointY , int len ,int  width , int goalWidth)
-
-
-return 0;
+	return 0;
 }
