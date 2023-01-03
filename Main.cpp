@@ -37,18 +37,22 @@ int main(int argc, char *argv[])
 	int levelWidth, levelHeight;
 
 	SDL_Init(SDL_INIT_VIDEO);
+	string resourcesFolderPath = "../res/";
+	string playerSpriteImageFilePath = resourcesFolderPath + "sprite.png";
+	string footballFieldImageFilePath = resourcesFolderPath + "footballField.png";
+	string footballImageFilePath  = resourcesFolderPath + "ball.png";
 	
 
 	int data = 10;
 	window = SDL_CreateWindow("FootBall Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1365, 822, SDL_WINDOW_SHOWN);
 	renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-	Player player1(renderTarget, "sprite.png", 550, 395, 3, 4);
-	Player player2(renderTarget, "sprite.png", 780, 395, 3, 4);
+	Player player1(renderTarget, playerSpriteImageFilePath.c_str(), 550, 395, 3, 4);
+	Player player2(renderTarget, playerSpriteImageFilePath.c_str(), 780, 395, 3, 4);
 
-	Ball ball(renderTarget, (550+780)/2 , 395 ,12, "ball.png");
+	Ball ball(renderTarget, (550+780)/2 , 395 ,12, footballImageFilePath.c_str());
 	
-	SDL_Texture *texture = LoadTexture("123.png", renderTarget);
+	SDL_Texture *texture = LoadTexture(footballFieldImageFilePath.c_str(), renderTarget);
 	SDL_QueryTexture(texture, NULL, NULL, &levelWidth, &levelHeight);
 
 
