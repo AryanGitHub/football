@@ -1,4 +1,6 @@
 #include "Ball.h"
+#include "Wall.h"
+#include "Map.h"
 
 #include<SDL_image.h>
 #include<iostream>
@@ -76,11 +78,49 @@ void Ball::update (float deltaTime){
     this->positionRect.x += (this->moveSpeedX * deltaTime) ;
     this->positionRect.y += (this->moveSpeedY * deltaTime) ;
 
-
-
-
-    
 }
+
+
+void Ball::isIntersectWithWall (FootballMap& fm){
+    Wall *wall = fm.map.isInside(this->getOriginX() , this->getOriginY());
+    if (wall!=NULL){
+        int value  = wall->locatePoint(this->getOriginX() , this->getOriginY());
+        if ( value== -2){
+            // goal logic
+        }
+        else {
+            //reflect On Wall 
+            
+            // change direction of moveSpeedX by 180 degree on hitting with x asix walls (where B coefficient is 0)
+            if (wall->B == 0){
+                moveSpeedX *= -1;
+                
+                positionRect.x = wall->C;
+                cout << "hit on x axis" << endl ;
+            }
+            
+            if (wall->A  == 0) { // change direction of moveSpeedY by 180 degree on hitting with Y asix walls (where A coefficient is 0)
+                moveSpeedY *= -1;
+                
+                 positionRect.y = wall->C;
+                cout << "hit on y axis" << endl ;
+            }
+        }
+    }
+}
+
+bool Ball::isLeftGoal(FootballMap& fm){
+    return ( (this->getOriginX() <= fm.initPointX) && 
+    (fm.map.walls[2].locatePoint(this->getOriginX() , this->getOriginY() ) == -2) && 
+    (fm.map.walls[4].locatePoint(this->getOriginX() , this->getOriginY() ) == -2) );
+}
+
+bool Ball::isRightGoal(FootballMap& fm){
+    return ( (this->getOriginX() >= (fm.initPointX+fm.len)) && 
+    (fm.map.walls[3].locatePoint(this->getOriginX() , this->getOriginY() ) == -2) && 
+    (fm.map.walls[5].locatePoint(this->getOriginX() , this->getOriginY() ) == -2) );
+}
+
 
 void Ball::draw (SDL_Renderer *renderTarget){
     SDL_RenderCopy(renderTarget, this->texture, &(this->frameRect), &(this->positionRect) );

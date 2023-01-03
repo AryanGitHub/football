@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "FootballMap.h"
 #include <SDL.h>
 #include <iostream>
 
@@ -40,6 +41,9 @@ class Ball {
     //bool isIntersecting(Player &player2);
     bool isIntersecting (int x ,int y , int radius);
     void isIntersectWithPlayer (Player& player,const Uint8 *keyState);
+    bool isLeftGoal(FootballMap& fm);
+    bool isRightGoal(FootballMap& fm);
+    void isIntersectWithWall (FootballMap& fm);
     SDL_Texture *getTexture();
     
 

@@ -7,11 +7,12 @@
 // there will be two sides to the wall 
 class Wall {
 private:
-int A,B,C;
+
 int startX,endX;   
 int sidePointX,sidePointY;
 
 public :
+int A,B,C;
 Wall (int A , int B , int C , int startX , int endX , int sidePointX ,int sidePointY);
 Wall (int A , int B, int C , int sidePointX, int sidePointY) ;
 int getValue (int x1, int y1);

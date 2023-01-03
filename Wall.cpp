@@ -40,11 +40,11 @@ int Wall::locatePoint (int x1, int y1){
         
     
         if ( B && (x1 < startX || x1 > endX)) {
-            std::cout << "returning -2 1st condition" << std::endl;    
+           // std::cout << "returning -2 1st condition" << std::endl;    
             return -2;
         }
         else if (!B && (y1 < startX || y1 > endX)) {
-            std::cout << "returning -2 2nd condition" << std::endl;    
+           // std::cout << "returning -2 2nd condition" << std::endl;    
             return -2;
         }
 

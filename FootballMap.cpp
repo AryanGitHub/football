@@ -20,9 +20,9 @@ Wall d2 ( -1 , 0, initPointX + len, initPointY+ width/2 + goalWidth/2 , initPoin
  
 map.walls.push_back(a);
 map.walls.push_back(b);
-map.walls.push_back(c1);
-map.walls.push_back(d1);
-map.walls.push_back(c2);
-map.walls.push_back(d2);
+map.walls.push_back(c1); // left side up wall
+map.walls.push_back(d1); //right side up wall
+map.walls.push_back(c2); // left side down wall
+map.walls.push_back(d2); // right side down wall
 
 }

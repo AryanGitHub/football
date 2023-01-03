@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
 	float delta = 0.0f;
 	const Uint8 *keyState;
 	SDL_Rect camerRect = { 0, 0, 1365, 822 };
+	FootballMap fm (60 , 10 , 1200 , 770, 300);
 	int levelWidth, levelHeight;
 
 	SDL_Init(SDL_INIT_VIDEO);
@@ -68,9 +69,14 @@ int main(int argc, char *argv[])
 		}
 
 		keyState = SDL_GetKeyboardState(NULL);
+		if (ball.isLeftGoal(fm))  cout << "left goal!" << endl;
+		else if (ball.isRightGoal(fm))  cout << "right goal!" << endl;
+		
         ball.isIntersectWithPlayer(player1 , keyState);
 		ball.isIntersectWithPlayer(player2 , keyState);
+		
 		ball.update(delta);
+		ball.isIntersectWithWall(fm);
 		player1.Update(delta, keyState); 
 		player2.Update(delta, keyState);
 		
