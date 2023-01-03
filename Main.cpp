@@ -3,6 +3,7 @@
 #include "FootballMap.h"
 #include "Player.h"
 #include "Ball.h"
+#include "Wall.h"
 using namespace std;
 
 SDL_Texture *LoadTexture (std::string filePath, SDL_Renderer *renderTarget)
@@ -73,8 +74,27 @@ int main(int argc, char *argv[])
 		}
 
 		keyState = SDL_GetKeyboardState(NULL);
-		if (ball.isLeftGoal(fm))  cout << "left goal!" << endl;
-		else if (ball.isRightGoal(fm))  cout << "right goal!" << endl;
+		if (ball.isLeftGoal(fm))  {cout << "left goal!" << endl;
+
+			ball.positionRect.x= 665;
+			ball.positionRect.y= 395;
+			ball.moveSpeedX = 0;
+			ball.moveSpeedY = 0;
+			player1.positionRect.x= 550;
+			player1.positionRect.y= 395;
+			player2.positionRect.x=780;
+			player2.positionRect.y= 395;
+
+			}
+		else if (ball.isRightGoal(fm))  {cout << "right goal!" << endl;
+			ball.positionRect.x= 665;
+			ball.positionRect.y= 395;
+			ball.moveSpeedX = 0;
+			ball.moveSpeedY = 0;
+			player1.positionRect.x= 550;
+			player1.positionRect.y= 395;
+			player2.positionRect.x=780;
+			player2.positionRect.y= 395;}
 		
         ball.isIntersectWithPlayer(player1 , keyState);
 		ball.isIntersectWithPlayer(player2 , keyState);
