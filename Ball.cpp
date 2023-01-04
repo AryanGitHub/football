@@ -22,12 +22,7 @@ Ball::Ball (SDL_Renderer *windowRenderer , int initialPositionX, int initialPosi
     this->frameRect.w = textureWidth ;
 
     this->radius = radius;
-    this->positionRect.h = this->positionRect.w = 2*this->radius;
-
-
-    
-   
-
+    this->positionRect.h = this->positionRect.w = 2*this->radius;   
     this->moveSpeedX = this->moveSpeedY=0;
     this->acceleration = 200.0;     
 }
@@ -94,15 +89,14 @@ void Ball::isIntersectWithWall (FootballMap& fm){
             // change direction of moveSpeedX by 180 degree on hitting with x asix walls (where B coefficient is 0)
             if (wall->B == 0){
                 moveSpeedX *= -1;
-                
                 positionRect.x = wall->C;
+                
                 cout << "hit on x axis" << endl ;
             }
             
             if (wall->A  == 0) { // change direction of moveSpeedY by 180 degree on hitting with Y asix walls (where A coefficient is 0)
                 moveSpeedY *= -1;
-                
-                 positionRect.y = wall->C;
+                positionRect.y = wall->C;
                 cout << "hit on y axis" << endl ;
             }
         }

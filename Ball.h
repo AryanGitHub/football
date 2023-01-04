@@ -10,8 +10,7 @@ class Ball {
     SDL_Rect frameRect ;
     SDL_Texture *texture;
    
-    float moveSpeedX,moveSpeedY;   //in pixel per sec
-    float acceleration;            // int pixel per sec^2
+          // int pixel per sec^2
     int textureWidth , textureHeight;
     int radius;
 
@@ -24,7 +23,8 @@ class Ball {
     
     public:
     SDL_Rect positionRect;
-
+    float moveSpeedX,moveSpeedY;   //in pixel per sec
+    float acceleration;  
 
     Ball (SDL_Renderer *windowRenderer , int initialPositionX, int initialPositionY , int radius, std::string ballTextureFilepath);
     
